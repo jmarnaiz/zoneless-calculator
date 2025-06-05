@@ -1,0 +1,6 @@
+/* @reference "tailwindcss"; */
+
+/* En la clase padre se define este css para que se aplique a los hijos */
+/* .is-command {
+  @apply bg-indigo-700/20;
+} */

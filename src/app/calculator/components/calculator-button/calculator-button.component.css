@@ -1,0 +1,26 @@
+@reference "tailwindcss";
+
+button {
+  @apply w-full h-16 outline-none focus:outline-none hover:bg-indigo-700/20 text-white text-xl font-light;
+}
+
+/* No se debe hacer, está deprecado y es mal uso, ya que lo convierte
+en global y si otros componentes tienen esta clase, se aplicará también
+Se mantiene por retrocompatibilidad con versiones anteriores de Angular */
+/* ::ng-deep .is-command {
+  @apply bg-indigo-700/20;
+} */
+/* También se podría poner en el controlador ViewEncapsulation.None pero
+ estaríamos en la misma. Esta clase de css se podría filtrar a otros
+ componentes. La solución es poner la clase css en el componente padre, que
+ contiene a este elemento. */
+
+.is-command {
+  @apply bg-indigo-700/20;
+}
+
+/* Así puedo eliminar el [class.is-command]="isCommand()" siempre
+que añada en el controlador @HostBinding('class.is-command')  */
+/* :host.is-command {
+  @apply bg-indigo-700/20;
+} */
