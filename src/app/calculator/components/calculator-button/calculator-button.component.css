@@ -19,6 +19,10 @@ Se mantiene por retrocompatibilidad con versiones anteriores de Angular */
   @apply bg-indigo-700/20;
 }
 
+.is-pressed {
+  @apply bg-indigo-800/20;
+}
+
 /* Así puedo eliminar el [class.is-command]="isCommand()" siempre
 que añada en el controlador @HostBinding('class.is-command')  */
 /* :host.is-command {
