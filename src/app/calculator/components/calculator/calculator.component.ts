@@ -27,7 +27,7 @@ const KEY_EQUIVALENTS: Record<string, string> = {
   styleUrl: './calculator.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(document:keyup)': 'handleKeyboardEvent($event)',
+    '(document:keydown)': 'handleKeyboardEvent($event)',
   },
 })
 // Document afecta a TODO el documento

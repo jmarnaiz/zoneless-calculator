@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostBinding,
   input,
   output,
   signal,
@@ -59,10 +58,6 @@ export class CalculatorButtonComponent {
     if (!this.contentValue()?.nativeElement) return;
 
     const value = this.contentValue()!.nativeElement.innerText;
-    console.log(
-      'Content value: ',
-      this.contentValue()?.nativeElement.innerText
-    );
 
     this.onClick.emit(value.trim());
   }

@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operators = ['+', '-', '*', '/'];
+const operators = ['+', '-', 'x', '÷']; // %
 const specialOperators = ['+/-', '.', '=', 'C', 'Backspace'];
 
 const MAX_NUM_CHARACTERS = 10;
@@ -23,13 +23,12 @@ export class CalculatorService {
 
     // Result calculation
     if (value === '=') {
-      // TODO
+      this._calculateResult();
       return;
     }
 
     // Clean result
     if (value === 'C') {
-      // TODO : Revisar números negativos
       this.resultText.set('0');
       this.subResultText.set('0');
       this.lastOperator.set('+');
@@ -38,6 +37,12 @@ export class CalculatorService {
 
     if (value === 'Backspace') {
       if (this.resultText() === '0') return;
+
+      if (this.resultText().includes('-') && this.resultText().length === 2) {
+        this.resultText.set('0');
+        return;
+      }
+
       if (this.resultText().length === 1) {
         this.resultText.set('0');
         return;
@@ -50,6 +55,7 @@ export class CalculatorService {
 
     // Apply operator
     if (operators.includes(value)) {
+      this._calculateResult();
       this.lastOperator.set(value);
       this.subResultText.set(this.resultText());
       this.resultText.set('0');
@@ -105,5 +111,30 @@ export class CalculatorService {
       this.resultText.update((currentText) => currentText + value);
       return;
     }
+  }
+
+  private _calculateResult() {
+    const number01 = parseFloat(this.subResultText());
+    const number02 = parseFloat(this.resultText());
+
+    let result = 0;
+
+    switch (this.lastOperator()) {
+      case '+':
+        result = number01 + number02;
+        break;
+      case '-':
+        result = number01 - number02;
+        break;
+      case 'x':
+        result = number01 * number02;
+        break;
+      case '÷':
+        result = number01 / number02;
+        break;
+    }
+
+    this.resultText.set(result.toString());
+    this.subResultText.set('0');
   }
 }
