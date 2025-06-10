@@ -1,15 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  inject,
   viewChildren,
 } from '@angular/core';
 import { CalculatorButtonComponent } from '@/calculator/components/calculator-button/calculator-button.component';
+import { CalculatorService } from '@/calculator/services/calculator.service';
 
 const KEY_EQUIVALENTS: Record<string, string> = {
   Escape: 'C',
   Clear: 'C',
   Delete: 'C',
-  Backspace: 'C',
+  // Backspace: 'C',
   c: 'C',
   '*': 'x',
   X: 'x',
@@ -29,9 +32,18 @@ const KEY_EQUIVALENTS: Record<string, string> = {
 })
 // Document afecta a TODO el documento
 export class CalculatorComponent {
+  private _calcService = inject(CalculatorService);
+
+  // De esta forma, creamos un readonly signal, sería como crear un getter
+  public resultText = computed(() => this._calcService.resultText());
+  public subResultText = computed(() => this._calcService.subResultText());
+  public lastOperator = computed(() => this._calcService.lastOperator());
+
   public calculatorButtons = viewChildren(CalculatorButtonComponent);
   handleClick(key: string) {
-    console.log({ key });
+    console.log('Key: ', key);
+
+    this._calcService.buildNumber(key);
   }
 
   /**
