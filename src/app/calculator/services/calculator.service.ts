@@ -53,6 +53,12 @@ export class CalculatorService {
       return;
     }
 
+    // Limit characters amount
+    if (this.resultText().length >= 10) {
+      console.log('Max length reached');
+      return;
+    }
+
     // Apply operator
     if (operators.includes(value)) {
       this._calculateResult();
