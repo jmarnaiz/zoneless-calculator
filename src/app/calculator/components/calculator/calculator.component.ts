@@ -41,8 +41,6 @@ export class CalculatorComponent {
 
   public calculatorButtons = viewChildren(CalculatorButtonComponent);
   handleClick(key: string) {
-    console.log('Key: ', key);
-
     this._calcService.buildNumber(key);
   }
 
@@ -60,7 +58,6 @@ export class CalculatorComponent {
   // @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     const key = event.key;
-    console.log({ key });
     const keyValue = KEY_EQUIVALENTS[key] ?? key;
     this.handleClick(keyValue);
 
